@@ -1,0 +1,46 @@
+<beans:beans
+    xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http use-expressions="true" create-session="stateless">
+        <csrf disabled="true" />
+        <http-basic />
+        <intercept-url pattern="/country/**" method="GET"
+            access="isAuthenticated()" />
+        <intercept-url pattern="/country/**"
+            method="DELETE" access="hasAuthority('ADMIN')" />
+        <intercept-url pattern="/**" access="permitAll" />
+    </http>
+
+    <authentication-manager
+        alias="authenticationManager">
+        <authentication-provider>
+            <password-encoder hash="bcrypt" />
+            <jdbc-user-service
+                data-source-ref="dataSource"
+                users-by-username-query="select name, password, enabled from users where name=?"
+                authorities-by-username-query="select name, rol from users where name=?" />
+        </authentication-provider>
+    </authentication-manager>
+
+    <!--  <authentication-manager
+        alias="authenticationManager">
+        <authentication-provider>
+            <user-service>
+                <user name="admin"
+                    password="$2a$10$tnC4pYqrAwCnDCFkFbjxV.PDE/b.fKI0aygmMQO0vKx5dki7WFT46"
+                    authorities="ADMIN" />
+                <user name="user"
+                    password="$2a$10$PR4ElawJcWhuLoBPnP4CDeG1c0NSyGPteTq9AYcbDl8vB8sMZ/C4K"
+                    authorities="USER" />
+            </user-service>
+            <password-encoder hash="bcrypt" />
+        </authentication-provider>
+    </authentication-manager>-->
+
+</beans:beans>
