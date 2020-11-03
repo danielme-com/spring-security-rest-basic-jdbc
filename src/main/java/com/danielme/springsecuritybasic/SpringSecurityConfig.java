@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -16,6 +18,10 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    public enum UserRol {
+        ADMIN, USER;
+    }
 
     private final DataSource dataSource;
 
@@ -43,7 +49,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().csrf().disable()
                 .authorizeRequests().antMatchers(HttpMethod.GET, "/country/**").authenticated()
-                .antMatchers(HttpMethod.DELETE, "/country/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/country/**").hasRole(UserRol.ADMIN.name())
                 .antMatchers("/**").permitAll()
                 .and().httpBasic();
     }
@@ -53,9 +59,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         auth.inMemoryAuthentication()
                 .withUser("admin").password(encoder.encode("admin"))
-                    .roles("ADMIN").and()
+                    .roles(UserRol.ADMIN.name()).and()
                 .withUser("user").password(encoder.encode("user"))
-                    .roles("USER");
+                    .roles(UserRol.USER.name());
     }*/
 
 }
