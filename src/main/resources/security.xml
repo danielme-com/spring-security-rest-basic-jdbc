@@ -13,7 +13,7 @@
         <intercept-url pattern="/country/**" method="GET"
             access="isAuthenticated()" />
         <intercept-url pattern="/country/**"
-            method="DELETE" access="hasAuthority('ADMIN')" />
+            method="DELETE" access="hasRole('ADMIN')" />
         <intercept-url pattern="/**" access="permitAll" />
     </http>
 

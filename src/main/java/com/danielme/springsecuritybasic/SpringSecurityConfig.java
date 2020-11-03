@@ -42,7 +42,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and().csrf().disable()
         .authorizeRequests().antMatchers(HttpMethod.GET, "/country/**").authenticated()
-        .antMatchers(HttpMethod.DELETE, "/country/**").hasAuthority("ADMIN")
+        .antMatchers(HttpMethod.DELETE, "/country/**").hasRole("ADMIN")
         .antMatchers("/**").permitAll()
         .and().httpBasic();
     }
@@ -50,9 +50,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     /*@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        auth.inMemoryAuthentication().withUser("admin").password(encoder.encode("admin"))
-                .roles("ADMIN").and().withUser("user").password(encoder.encode("user"))
-                .roles("USER");
+        auth.inMemoryAuthentication()
+                .withUser("admin").password(encoder.encode("admin"))
+                    .roles("ADMIN").and()
+                .withUser("user").password(encoder.encode("user"))
+                    .roles("USER");
     }*/
 
 }
