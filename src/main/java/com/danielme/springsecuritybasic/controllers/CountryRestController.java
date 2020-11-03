@@ -35,11 +35,9 @@ public class CountryRestController {
     @GetMapping(value = "/{id}/")
     public ResponseEntity<Country> getById(@PathVariable("id") Long id) {
         printUser(SecurityContextHolder.getContext().getAuthentication());
-        Optional<Country> country = countryService.findById(id);
-        if (country.isPresent()) {
-            return new ResponseEntity<>(country.get(), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        return countryService.findById(id)
+                .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(null, HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping(value = "/{id}/")
