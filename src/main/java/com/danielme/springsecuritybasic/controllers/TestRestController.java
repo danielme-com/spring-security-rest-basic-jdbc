@@ -17,7 +17,7 @@ public class TestRestController {
     @GetMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void testEndpoint() {
-        // noting
+        // nothing
     }
 
 }

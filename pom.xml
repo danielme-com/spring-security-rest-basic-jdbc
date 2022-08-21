@@ -6,20 +6,15 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.5.RELEASE</version>
+        <version>2.7.2</version>
         <relativePath />
     </parent>
     <groupId>com.danielme</groupId>
     <artifactId>spring-security-rest-basic</artifactId>
     <version>1.0.0</version>
     <name>spring-security-basic-rest</name>
-    <description>Demo project for Spring REST Api with Spring Security</description>
-    <url>http://danielme.com/2019/03/19/spring-rest-basic-spring-security/</url>
-
-    <properties>
-        <java.version>1.8</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    <description>Demo project for Spring REST API with Spring Security - BASIC + JDBC</description>
+    <url>https://danielme.com/2019/03/19/spring-rest-basic-spring-security/</url>
 
     <dependencies>
 
@@ -39,8 +34,22 @@
         </dependency>
 
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

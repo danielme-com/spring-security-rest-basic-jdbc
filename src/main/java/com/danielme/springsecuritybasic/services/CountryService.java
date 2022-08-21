@@ -1,20 +1,19 @@
 package com.danielme.springsecuritybasic.services;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-
+import com.danielme.springsecuritybasic.model.Country;
 import org.springframework.stereotype.Service;
 
-import com.danielme.springsecuritybasic.model.Country;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CountryService {
 
-    private static List<Country> countries;
+    private final List<Country> countries;
 
     public CountryService() {
-        countries = new LinkedList<>();
+        countries = new ArrayList<>();
         countries.add(new Country(1L, "Spain", 49067981));
         countries.add(new Country(2L, "Mexico", 130497248));
     }
@@ -24,7 +23,7 @@ public class CountryService {
     }
 
     public void deleteById(Long id) {
-        findById(id).ifPresent(c -> countries.remove(c));
+        findById(id).ifPresent(countries::remove);
     }
 
 }

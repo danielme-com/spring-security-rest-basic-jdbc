@@ -10,11 +10,11 @@
     <http use-expressions="true" create-session="stateless">
         <csrf disabled="true" />
         <http-basic />
-        <intercept-url pattern="/country/**" method="GET"
+        <intercept-url pattern="/countries/**" method="GET"
             access="isAuthenticated()" />
-        <intercept-url pattern="/country/**"
+        <intercept-url pattern="/countries/**"
             method="DELETE" access="hasRole('ADMIN')" />
-        <intercept-url pattern="/**" access="permitAll" />
+        <intercept-url pattern="/**" access="permitAll()" />
     </http>
 
     <authentication-manager
@@ -27,20 +27,5 @@
                 authorities-by-username-query="select name, rol from users where name=?" />
         </authentication-provider>
     </authentication-manager>
-
-    <!--  <authentication-manager
-        alias="authenticationManager">
-        <authentication-provider>
-            <user-service>
-                <user name="admin"
-                    password="$2a$10$tnC4pYqrAwCnDCFkFbjxV.PDE/b.fKI0aygmMQO0vKx5dki7WFT46"
-                    authorities="ADMIN" />
-                <user name="user"
-                    password="$2a$10$PR4ElawJcWhuLoBPnP4CDeG1c0NSyGPteTq9AYcbDl8vB8sMZ/C4K"
-                    authorities="USER" />
-            </user-service>
-            <password-encoder hash="bcrypt" />
-        </authentication-provider>
-    </authentication-manager>-->
 
 </beans:beans>
