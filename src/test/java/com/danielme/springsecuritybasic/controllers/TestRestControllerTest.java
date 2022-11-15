@@ -19,13 +19,13 @@ class TestRestControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    void testAnonymous() throws Exception {
+    void testNotAuthenticated() throws Exception {
         mockMvc.perform(get(TestRestController.TEST_RESOURCE))
                 .andExpect(status().is(HttpStatus.NO_CONTENT.value()));
     }
 
     @Test
-    void testAnonymousButWrongCredentials() throws Exception {
+    void testWrongCredentials() throws Exception {
         mockMvc.perform(get(TestRestController.TEST_RESOURCE).with(httpBasic("anything", "anything")))
                 .andExpect(status().is(HttpStatus.UNAUTHORIZED.value()));
     }
