@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.is;
@@ -46,6 +47,14 @@ class CountryRestControllerTest {
     void testGetCountrySuccess() throws Exception {
         mockMvc.perform(get(URL, MEXICO_ID)
                 .with(httpBasic(USER_STANDARD, USER_STANDARD)))
+                .andExpect(status().is(HttpStatus.OK.value()))
+                .andExpect(jsonPath("$.name", is(countryService.findById(MEXICO_ID).get().getName())));
+    }
+
+    @Test
+    @WithMockUser
+    void testGetCountrySuccessMockUser() throws Exception {
+        mockMvc.perform(get(URL, MEXICO_ID))
                 .andExpect(status().is(HttpStatus.OK.value()))
                 .andExpect(jsonPath("$.name", is(countryService.findById(MEXICO_ID).get().getName())));
     }
