@@ -10,9 +10,9 @@
     <http use-expressions="true" create-session="stateless">
         <csrf disabled="true" />
         <http-basic />
-        <intercept-url pattern="/countries/**" method="GET"
+        <intercept-url pattern="/countries/*" method="GET"
             access="isAuthenticated()" />
-        <intercept-url pattern="/countries/**"
+        <intercept-url pattern="/countries/*"
             method="DELETE" access="hasRole('ADMIN')" />
         <intercept-url pattern="/**" access="permitAll()" />
     </http>
