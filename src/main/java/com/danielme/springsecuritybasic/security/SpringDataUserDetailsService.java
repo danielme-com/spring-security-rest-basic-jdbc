@@ -29,7 +29,8 @@ public class SpringDataUserDetailsService implements UserDetailsService {
 
     private UserDetails map(User user) {
         List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(user.getRol());
-        return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), authorities);
+        return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), user.isEnabled(),
+                user.isEnabled(), user.isEnabled(), user.isEnabled(), authorities);
     }
 
 }
